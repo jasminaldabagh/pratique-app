@@ -3,14 +3,12 @@
 import { ArrowLeft, Flame, X } from 'lucide-react'
 import { verbs } from '@/data/verbs'
 import { words, Word } from '@/data/words'
-import { CustomWord } from '@/hooks/use-user-deck'
 
 interface ShakyListProps {
   isOpen: boolean
   onClose: () => void
   shakyVerbIds: number[]
   shakyWordIds: (number | string)[]
-  customWords: CustomWord[]
   onToggleShakyVerb: (verbId: number) => void
   onToggleShakyWord: (wordId: number | string) => void
 }
@@ -20,20 +18,13 @@ export function ShakyList({
   onClose, 
   shakyVerbIds, 
   shakyWordIds,
-  customWords,
   onToggleShakyVerb,
   onToggleShakyWord,
 }: ShakyListProps) {
   if (!isOpen) return null
 
   const shakyVerbs = verbs.filter(v => shakyVerbIds.includes(v.id))
-  const shakyWords = [
-    ...words.filter(w => shakyWordIds.includes(w.id)),
-    ...customWords.filter(w => shakyWordIds.includes(w.id)).map(cw => ({
-      ...cw,
-      starter: false,
-    } as Word)),
-  ]
+  const shakyWords = words.filter(w => shakyWordIds.includes(w.id))
 
   const hasAny = shakyVerbs.length > 0 || shakyWords.length > 0
 

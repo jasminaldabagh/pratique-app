@@ -1,6 +1,6 @@
 "use client"
 
-import { X, BookOpen, Type, Plus, Flame } from 'lucide-react'
+import { X, BookOpen, Type, Flame } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
 interface MenuSheetProps {
@@ -8,7 +8,6 @@ interface MenuSheetProps {
   onClose: () => void
   onOpenVerbs: () => void
   onOpenWords: () => void
-  onOpenCustomWord: () => void
   onOpenShakyList: () => void
 }
 
@@ -17,7 +16,6 @@ export function MenuSheet({
   onClose, 
   onOpenVerbs, 
   onOpenWords, 
-  onOpenCustomWord,
   onOpenShakyList,
 }: MenuSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null)
@@ -36,7 +34,6 @@ export function MenuSheet({
   const menuItems = [
     { icon: BookOpen, label: 'Verbs', onClick: onOpenVerbs },
     { icon: Type, label: 'Words', onClick: onOpenWords },
-    { icon: Plus, label: 'Add custom word', onClick: onOpenCustomWord },
     { icon: Flame, label: 'Shaky words', onClick: onOpenShakyList },
   ]
 

@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Pratique Design System */
+:root {
+  /* Core Colors - Monochrome palette */
+  --bg: #F2F2F2;
+  --surface: #FFFFFF;
+  --ink: #1A1A1A;
+  --muted: #6B6B6B;
+  --border: #E5E5E5;
+  --dashed: #CCCCCC;
+  
+  /* Semantic Badges (only use of color) */
+  --badge-er: #E8E8E8;
+  --badge-ir: #D4D4D4;
+  --badge-irreg: #C0C0C0;
+  --shaky: #FF6B35;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-img: 16px;
+  
+  /* Typography */
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  
+  /* Shadcn compatibility */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--surface);
+  --secondary: var(--border);
+  --secondary-foreground: var(--ink);
+  --muted-color: var(--border);
+  --muted-foreground: var(--muted);
+  --accent: var(--border);
+  --accent-foreground: var(--ink);
+  --destructive: #dc2626;
+  --destructive-foreground: var(--surface);
+  --border-color: var(--border);
+  --input: var(--border);
+  --ring: var(--muted);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', 'Playfair Display Fallback', Georgia, serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--ink);
+  --color-primary: var(--ink);
+  --color-primary-foreground: var(--surface);
+  --color-secondary: var(--border);
+  --color-secondary-foreground: var(--ink);
+  --color-muted: var(--border);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--border);
+  --color-accent-foreground: var(--ink);
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: var(--surface);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--muted);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-[var(--bg)] text-[var(--ink)];
+  }
+}
+
+/* French word dashed underline style */
+.word-dashed {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--dashed);
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.word-dashed:hover {
+  text-decoration-color: var(--ink);
+}
+
+/* Playfair Display utility classes */
+.font-french {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Lock button styles */
+.lock-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.lock-btn:hover {
+  border-color: var(--muted);
+}
+
+.lock-btn.locked {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+
+/* Badge styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  font-size: var(--text-sm);
+  font-family: 'Inter', sans-serif;
+}
+
+.badge-er { background: var(--badge-er); }
+.badge-ir { background: var(--badge-ir); }
+.badge-irreg { background: var(--badge-irreg); }
+
+/* Chip styles for optional words */
+.word-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1.5px dashed var(--dashed);
+  border-radius: var(--r-md);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  background: transparent;
+}
+
+.word-chip:hover {
+  border-color: var(--muted);
+}
+
+/* Drawer handle */
+.drawer-handle {
+  width: 32px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto;
+}

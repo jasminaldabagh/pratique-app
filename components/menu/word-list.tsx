@@ -3,14 +3,12 @@
 import { useState } from 'react'
 import { ArrowLeft, Search, Check, Flame } from 'lucide-react'
 import { words, WordType } from '@/data/words'
-import { CustomWord } from '@/hooks/use-user-deck'
 
 interface WordListProps {
   isOpen: boolean
   onClose: () => void
   activeWordIds: (number | string)[]
   shakyWordIds: (number | string)[]
-  customWords: CustomWord[]
   onToggleWord: (wordId: number | string) => void
 }
 
@@ -26,7 +24,6 @@ export function WordList({
   onClose, 
   activeWordIds, 
   shakyWordIds,
-  customWords,
   onToggleWord 
 }: WordListProps) {
   const [search, setSearch] = useState('')

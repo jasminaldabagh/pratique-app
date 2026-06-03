@@ -7,7 +7,6 @@ import { PeekDrawer } from '@/components/peek-drawer/peek-drawer'
 import { MenuSheet } from '@/components/menu/menu-sheet'
 import { VerbList } from '@/components/menu/verb-list'
 import { WordList } from '@/components/menu/word-list'
-import { AddCustomWord } from '@/components/menu/add-custom-word'
 import { ShakyList } from '@/components/menu/shaky-list'
 import { useUserDeck } from '@/hooks/use-user-deck'
 
@@ -44,7 +43,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [verbListOpen, setVerbListOpen] = useState(false)
   const [wordListOpen, setWordListOpen] = useState(false)
-  const [customWordOpen, setCustomWordOpen] = useState(false)
   const [shakyListOpen, setShakyListOpen] = useState(false)
   
   // Peek drawer state
@@ -95,10 +93,6 @@ export default function Home() {
     setWordListOpen(true)
   }, [])
 
-  const handleOpenCustomWord = useCallback(() => {
-    setMenuOpen(false)
-    setCustomWordOpen(true)
-  }, [])
 
   const handleOpenShakyList = useCallback(() => {
     setMenuOpen(false)
@@ -144,7 +138,6 @@ export default function Home() {
           onClose={() => setMenuOpen(false)}
           onOpenVerbs={handleOpenVerbs}
           onOpenWords={handleOpenWords}
-          onOpenCustomWord={handleOpenCustomWord}
           onOpenShakyList={handleOpenShakyList}
         />
         <VerbList
@@ -197,7 +190,6 @@ export default function Home() {
         onClose={() => setMenuOpen(false)}
         onOpenVerbs={handleOpenVerbs}
         onOpenWords={handleOpenWords}
-        onOpenCustomWord={handleOpenCustomWord}
         onOpenShakyList={handleOpenShakyList}
       />
 
@@ -220,12 +212,6 @@ export default function Home() {
         onToggleWord={toggleWord}
       />
 
-      {/* Add Custom Word */}
-      <AddCustomWord
-        isOpen={customWordOpen}
-        onClose={() => setCustomWordOpen(false)}
-        onAdd={addCustomWord}
-      />
 
       {/* Shaky List */}
       <ShakyList

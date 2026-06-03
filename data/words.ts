@@ -1,5 +1,5 @@
 // Word types: noun | adjective | adverb
-export type WordType = "noun" | "adjective" | "adverb" | "verb"
+export type WordType = "noun" | "adjective" | "adverb" | "verb" | "preposition";
 
 export interface Word {
   id: number | string

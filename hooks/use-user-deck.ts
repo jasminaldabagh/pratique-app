@@ -2,16 +2,9 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { verbs, getStarterVerbs } from '@/data/verbs'
-import { words, getStarterWords, Word, WordType } from '@/data/words'
+import { words, getStarterWords } from '@/data/words'
 
 const STORAGE_KEY = 'pratique_state'
-
-export interface CustomWord {
-  id: string
-  word: string
-  english: string
-  type: WordType
-}
 
 export interface UserState {
   hasLaunched: boolean
@@ -19,7 +12,6 @@ export interface UserState {
   activeWordIds: (number | string)[]
   shakyVerbIds: number[]
   shakyWordIds: (number | string)[]
-  customWords: CustomWord[]
 }
 
 const initialState: UserState = {
@@ -28,7 +20,6 @@ const initialState: UserState = {
   activeWordIds: [],
   shakyVerbIds: [],
   shakyWordIds: [],
-  customWords: [],
 }
 
 function getStoredState(): UserState {
@@ -69,7 +60,6 @@ export function useUserDeck() {
         activeWordIds: starterWordIds,
         shakyVerbIds: [],
         shakyWordIds: [],
-        customWords: [],
       }
       
       setState(newState)
@@ -84,14 +74,8 @@ export function useUserDeck() {
   // Get active verbs
   const activeVerbs = verbs.filter(v => state.activeVerbIds.includes(v.id))
   
-  // Get active words (including custom words)
-  const activeWords = [
-    ...words.filter(w => state.activeWordIds.includes(w.id)),
-    ...state.customWords.filter(w => state.activeWordIds.includes(w.id)).map(cw => ({
-      ...cw,
-      starter: false,
-    } as Word)),
-  ]
+  // Get active words
+  const activeWords = words.filter(w => state.activeWordIds.includes(w.id))
 
   // Toggle verb in active deck
   const toggleVerb = useCallback((verbId: number) => {
@@ -145,35 +129,6 @@ export function useUserDeck() {
     })
   }, [])
 
-  // Add custom word
-  const addCustomWord = useCallback((word: Omit<CustomWord, 'id'>) => {
-    setState(prev => {
-      const id = `custom_${Date.now()}`
-      const newWord: CustomWord = { ...word, id }
-      const newState: UserState = {
-        ...prev,
-        customWords: [...prev.customWords, newWord],
-        activeWordIds: [...prev.activeWordIds, id],
-      }
-      saveState(newState)
-      return newState
-    })
-  }, [])
-
-  // Remove custom word
-  const removeCustomWord = useCallback((wordId: string) => {
-    setState(prev => {
-      const newState: UserState = {
-        ...prev,
-        customWords: prev.customWords.filter(w => w.id !== wordId),
-        activeWordIds: prev.activeWordIds.filter(id => id !== wordId),
-        shakyWordIds: prev.shakyWordIds.filter(id => id !== wordId),
-      }
-      saveState(newState)
-      return newState
-    })
-  }, [])
-
   // Check if verb is shaky
   const isVerbShaky = useCallback((verbId: number) => {
     return state.shakyVerbIds.includes(verbId)
@@ -203,13 +158,10 @@ export function useUserDeck() {
     toggleWord,
     toggleShakyVerb,
     toggleShakyWord,
-    addCustomWord,
-    removeCustomWord,
     isVerbShaky,
     isWordShaky,
     isVerbActive,
     isWordActive,
-    customWords: state.customWords,
     shakyVerbIds: state.shakyVerbIds,
     shakyWordIds: state.shakyWordIds,
   }
